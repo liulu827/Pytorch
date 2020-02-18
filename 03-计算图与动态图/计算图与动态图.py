@@ -13,11 +13,12 @@
 import torch
 # 用户创建的节点称为叶子结点w,x，叶子结点可以通过tensor的is_leaf属性进行判断
 # 设置叶子结点这个概念主要是为了节省内存，因为反向传播之后非叶子结点的梯度是会释放掉的
-# 非叶子结点可以通过retain_grad()保留
+# 非叶子结点可以在执行反向传播之前通过retain_grad()保留，
 w = torch.tensor([1.], requires_grad=True) 
 x = torch.tensor([2.], requires_grad=True)
 
 a = torch.add(w, x)     # retain_grad()
+a.retain_grad()
 b = torch.add(w, 1)
 y = torch.mul(a, b)
 
