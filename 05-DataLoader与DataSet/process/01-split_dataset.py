@@ -3,27 +3,31 @@
 '''
 @File    :   01-split_dataset.py
 @Time    :   2020/02/19 09:58:11
-@Author  :   liululu 
+@Author  :   liululu
 @brief   :   划分数据集，制作my_dataset
 @Contact :   liululu827@163.com
 @Desc    :   None
 '''
 
+
 # here put the import lib
 import os
 import random
 # shutil.copy(source,destination)将source的文件拷贝到destination，两个参数都是字符串格式。
-import shutil  
+import shutil
+
 
 def makedir(new_dir):
+
     if not os.path.exists(new_dir):
         os.makedirs(new_dir)
 
-if __name__ =='__main__':
+
+if __name__ == '__main__':
 
     random.seed(1)
-    dataset_dir = os.path.join('.', 'data', 'RMB_data')
-    split_dir = os.path.join('.', 'data', 'my_dataset')
+    dataset_dir = os.path.join('..', 'data', 'RMB_data')
+    split_dir = os.path.join('..', 'data', 'my_dataset')
     train_dir = os.path.join(split_dir, "train")
     valid_dir = os.path.join(split_dir, "valid")
     test_dir = os.path.join(split_dir, "test")
@@ -41,7 +45,10 @@ if __name__ =='__main__':
     for root, dirs, files in os.walk(dataset_dir):
         for sub_dir in dirs:  # dataset_dir下面的所有文件夹名
             imgs = os.listdir(os.path.join(root, sub_dir))  # sub_dir文件夹下所有的文件名
-            imgs = list(filter(lambda x: x.endswith('.jpg'), imgs))  # sub_dir 文件夹下所有的.jpg文件
+            imgs = list(
+                filter(
+                    lambda x: x.endswith('.jpg'),
+                    imgs))  # sub_dir 文件夹下所有的.jpg文件
             # 打乱
             random.shuffle(imgs)
             img_count = len(imgs)
@@ -64,4 +71,11 @@ if __name__ =='__main__':
                 src_path = os.path.join(dataset_dir, sub_dir, imgs[i])
 
                 shutil.copy(src_path, target_path)
-            print('Class:{}, train:{}, valid:{}, test:{}'.format(sub_dir, train_point, valid_point-train_point, img_count-valid_point))
+            print(
+                'Class:{}, train:{}, valid:{}, test:{}'.format(
+                    sub_dir,
+                    train_point,
+                    valid_point -
+                    train_point,
+                    img_count -
+                    valid_point))
