@@ -38,6 +38,7 @@ class RMBDataset(Dataset):
     def __len__(self):  # 查看样本的数量
         return len(self.data_info)
 
+    # 一般在写一个方法的时候, 默认会接受一个self的形参, staticmethod 但是在调用这个方法的使用可能并没有传递任何一个参数
     @staticmethod
     def get_img_info(data_dir):  # 获取数据的路径以及标签
         data_info = list()
